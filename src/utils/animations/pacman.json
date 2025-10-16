@@ -1,0 +1,129 @@
+{
+    "idle": {
+        "frameRate": 5,
+        "frames": [
+            {
+                "spriteX": 0,
+                "spriteY": 175,
+                "spriteWidth": 90,
+                "spriteHeight": 70
+            }
+        ]
+    },
+    "moving-right": {
+        "frameRate": 5,
+        "frames": [
+            {
+                "spriteX": 0,
+                "spriteY": 175,
+                "spriteWidth": 90,
+                "spriteHeight": 70
+            },
+            {
+                "spriteX": 85,
+                "spriteY": 175,
+                "spriteWidth": 90,
+                "spriteHeight": 70
+            },
+            {
+                "spriteX": 170,
+                "spriteY": 175,
+                "spriteWidth": 90,
+                "spriteHeight": 70
+            },
+            {
+                "spriteX": 85,
+                "spriteY": 175,
+                "spriteWidth": 90,
+                "spriteHeight": 70
+            }
+        ]
+    },
+    "moving-left": {
+        "frameRate": 5,
+        "frames": [
+            {
+                "spriteX": 255,
+                "spriteY": 175,
+                "spriteWidth": 90,
+                "spriteHeight": 70
+            },
+            {
+                "spriteX": 340,
+                "spriteY": 175,
+                "spriteWidth": 90,
+                "spriteHeight": 70
+            },
+            {
+                "spriteX": 425,
+                "spriteY": 175,
+                "spriteWidth": 90,
+                "spriteHeight": 70
+            },
+            {
+                "spriteX": 340,
+                "spriteY": 175,
+                "spriteWidth": 90,
+                "spriteHeight": 70
+            }
+        ]
+    },
+    "moving-up": {
+        "frameRate": 5,
+        "frames": [
+            {
+                "spriteX": 0,
+                "spriteY": 260,
+                "spriteWidth": 84,
+                "spriteHeight": 75
+            },
+            {
+                "spriteX": 75,
+                "spriteY": 260,
+                "spriteWidth": 84,
+                "spriteHeight": 75
+            },
+            {
+                "spriteX": 150,
+                "spriteY": 255,
+                "spriteWidth": 84,
+                "spriteHeight": 75
+            },
+            {
+                "spriteX": 75,
+                "spriteY": 260,
+                "spriteWidth": 84,
+                "spriteHeight": 75
+            }
+        ]
+    },
+    "moving-down": {
+        "frameRate": 5,
+        "frames": [
+            {
+                "spriteX": 0,
+                "spriteY": 345,
+                "spriteWidth": 84,
+                "spriteHeight": 75
+            },
+            {
+                "spriteX": 75,
+                "spriteY": 345,
+                "spriteWidth": 84,
+                "spriteHeight": 75
+            },
+            {
+                "spriteX": 150,
+                "spriteY": 350,
+                "spriteWidth": 84,
+                "spriteHeight": 75
+            },
+            {
+                "spriteX": 75,
+                "spriteY": 345,
+                "spriteWidth": 84,
+                "spriteHeight": 75
+            }
+        ]
+    }
+}
