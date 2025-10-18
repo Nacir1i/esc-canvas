@@ -1,4 +1,5 @@
 import { State } from "./State";
+import { Hitbox } from "./Hitbox";
 import { Velocity } from "./Velocity";
 import { Transform } from "./Transform";
 import { Animation } from "./Animation";
@@ -12,6 +13,7 @@ export const components = {
   Animation,
   State,
   AnimationCollection,
+  Hitbox,
 };
 export type Component =
   | Transform
@@ -19,7 +21,8 @@ export type Component =
   | Velocity
   | Animation
   | State
-  | AnimationCollection;
+  | AnimationCollection
+  | Hitbox;
 export type ComponentName = keyof typeof components;
 
 export {
@@ -29,4 +32,5 @@ export {
   Animation,
   State,
   AnimationCollection,
+  Hitbox,
 };
