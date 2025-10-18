@@ -11,6 +11,7 @@ import { AssetsManager } from "./libs/AssetsManager";
 import { playerMovement } from "./system/playerMovement";
 import { movementDumping } from "./system/movementDumping";
 import { movementAnimation } from "./system/movementAnimation";
+import { syncHitboxPositionToEntityPosition } from "./system/syncHitboxPositionToEntityPosition";
 
 export const CANVAS_WIDTH = 900;
 export const CANVAS_HEIGHT = 900;
@@ -43,10 +44,12 @@ async function main() {
   scene.registerSystem(playerMovement);
   scene.registerSystem(movementDumping);
   scene.registerSystem(movement);
+  scene.registerSystem(syncHitboxPositionToEntityPosition);
   scene.registerSystem(movementAnimation);
   scene.registerSystem(animations);
 
   scene.registerComponent(player.id, "State", player.state);
+  scene.registerComponent(player.id, "Hitbox", player.hitbox);
   scene.registerComponent(player.id, "Velocity", player.velocity);
   scene.registerComponent(player.id, "Transform", player.transform);
   scene.registerComponent(player.id, "Dimensions", player.dimensions);
