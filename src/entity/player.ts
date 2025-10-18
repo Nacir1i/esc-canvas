@@ -11,11 +11,6 @@ import { Hitbox } from "../component/Hitbox";
 const PLAYER_WIDTH = 40;
 const PLAYER_HEIGHT = 30;
 
-const playerStartingPosition = {
-  x: 10,
-  y: 10,
-};
-
 type PlayerState =
   | "idle"
   | "moving-right"
@@ -23,26 +18,22 @@ type PlayerState =
   | "moving-up"
   | "moving-down";
 
-export function createPlayerEntity() {
+export function createPlayerEntity(startingPosition: { x: number; y: number }) {
   const id = uuid();
 
   const playerState: PlayerState = "moving-right";
   const state = new State(playerState);
 
   const hitbox = new Hitbox(
-    playerStartingPosition.x,
-    playerStartingPosition.y,
+    startingPosition.x,
+    startingPosition.y,
     PLAYER_WIDTH,
     PLAYER_HEIGHT
   );
   const dimensions = new Dimensions(PLAYER_WIDTH, PLAYER_HEIGHT);
 
   const velocity = new Velocity(0, 0, 90);
-  const transform = new Transform(
-    playerStartingPosition.x,
-    playerStartingPosition.y,
-    0
-  );
+  const transform = new Transform(startingPosition.x, startingPosition.y, 0);
 
   const idleAnimation = new Animation(
     pacmanAnimations["idle"].frames,

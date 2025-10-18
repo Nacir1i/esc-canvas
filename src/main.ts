@@ -16,6 +16,11 @@ import { syncHitboxPositionToEntityPosition } from "./system/syncHitboxPositionT
 export const CANVAS_WIDTH = 900;
 export const CANVAS_HEIGHT = 900;
 
+const player1StartingPosition = {
+  x: 10,
+  y: 10,
+};
+
 async function main() {
   const canvas = document.querySelector<HTMLCanvasElement>("#app");
   if (!canvas) throw new Error("Missing app canvas");
@@ -39,7 +44,7 @@ async function main() {
     assetsManager
   );
 
-  const player = createPlayerEntity();
+  const player = createPlayerEntity(player1StartingPosition);
 
   scene.registerSystem(playerMovement);
   scene.registerSystem(movementDumping);
