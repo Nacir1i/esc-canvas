@@ -1,4 +1,4 @@
-import type { AssetsManager } from "./AssetsManager";
+import type { SpriteSheetLoader } from "./SpriteSheetLoader";
 import type { Scene } from "./Scene";
 
 export class Renderer {
@@ -6,7 +6,7 @@ export class Renderer {
   private canvasHeight;
   private readonly canvasContext: CanvasRenderingContext2D;
 
-  assetsManager: AssetsManager;
+  assetsManager: SpriteSheetLoader;
 
   readonly staggerFrames = 10;
 
@@ -14,7 +14,7 @@ export class Renderer {
     canvasWidth: number,
     canvasHeight: number,
     canvasContext: CanvasRenderingContext2D,
-    assetsManager: AssetsManager
+    assetsManager: SpriteSheetLoader
   ) {
     this.canvasContext = canvasContext;
 
@@ -29,6 +29,8 @@ export class Renderer {
 
     this.renderFrame(scene);
     this.renderHitboxes(scene);
+    this.renderRectangles(scene);
+    this.renderTexts(scene);
   }
 
   private renderFrame(scene: Scene) {
@@ -67,35 +69,55 @@ export class Renderer {
   private renderHitboxes(scene: Scene) {
     const hitboxEntities = scene.query(["Hitbox"]);
 
-    const patternCanvas = document.createElement("canvas");
-    const patternCtx = patternCanvas.getContext("2d")!;
-
-    const patternSize = 10;
-    patternCanvas.width = patternSize;
-    patternCanvas.height = patternSize;
-
-    patternCtx.strokeStyle = "#99ff00ff";
-    patternCtx.lineWidth = 2;
-    patternCtx.beginPath();
-    patternCtx.moveTo(0, 0);
-    patternCtx.lineTo(patternSize, patternSize);
-    patternCtx.stroke();
-
+    this.canvasContext.strokeStyle = "yellow";
     for (const entityId of hitboxEntities) {
       const entityHitbox = scene.componentMaps.Hitbox.get(entityId)!;
 
-      const fillPattern = this.canvasContext.createPattern(
-        patternCanvas,
-        "repeat"
-      )!;
+      this.canvasContext.strokeRect(
+        entityHitbox.x,
+        entityHitbox.y,
+        entityHitbox.width,
+        entityHitbox.height
+      );
+    }
+  }
 
-      const rectX = entityHitbox.x;
-      const rectY = entityHitbox.y;
-      const rectWidth = entityHitbox.width;
-      const rectHeight = entityHitbox.height;
+  private renderRectangles(scene: Scene) {
+    const rectangleEntities = scene.query([
+      "Dimensions",
+      "Transform",
+      "Rectangle",
+    ]);
 
-      this.canvasContext.fillStyle = fillPattern;
-      this.canvasContext.fillRect(rectX, rectY, rectWidth, rectHeight);
+    for (const entityId of rectangleEntities) {
+      const entityTransform = scene.componentMaps.Transform.get(entityId)!;
+      const entityRectangle = scene.componentMaps.Rectangle.get(entityId)!;
+      const entityDimensions = scene.componentMaps.Dimensions.get(entityId)!;
+
+      this.canvasContext.fillStyle = entityRectangle.color;
+      this.canvasContext.fillRect(
+        entityTransform.x,
+        entityTransform.y,
+        entityDimensions.width,
+        entityDimensions.height
+      );
+    }
+  }
+
+  private renderTexts(scene: Scene) {
+    const textEntities = scene.query(["Text", "Transform"]);
+
+    for (const entityId of textEntities) {
+      const entityText = scene.componentMaps.Text.get(entityId)!;
+      const entityTransform = scene.componentMaps.Transform.get(entityId)!;
+
+      this.canvasContext.fillStyle = entityText.color;
+      this.canvasContext.font = entityText.font;
+      this.canvasContext.fillText(
+        entityText.content,
+        entityTransform.x,
+        entityTransform.y
+      );
     }
   }
 }
