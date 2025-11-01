@@ -7,16 +7,16 @@ export function playerMovement(scene: Scene) {
     const entityVelocity = scene.componentMaps.Velocity.get(entityId)!;
 
     if (scene.inputManager.isKeyPressed("KeyW")) {
-      entityVelocity.y = -entityVelocity.speed;
+      entityVelocity.y = -1;
     }
     if (scene.inputManager.isKeyPressed("KeyS")) {
-      entityVelocity.y = entityVelocity.speed;
+      entityVelocity.y = 1;
     }
     if (scene.inputManager.isKeyPressed("KeyA")) {
-      entityVelocity.x = -entityVelocity.speed;
+      entityVelocity.x = -1;
     }
     if (scene.inputManager.isKeyPressed("KeyD")) {
-      entityVelocity.x = entityVelocity.speed;
+      entityVelocity.x = 1;
     }
   }
 }
