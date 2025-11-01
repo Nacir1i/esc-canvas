@@ -3,8 +3,8 @@
     "frameRate": 5,
     "frames": [
       {
-        "spriteX": 489,
-        "spriteY": 1,
+        "spriteX": 473,
+        "spriteY": 65,
         "spriteWidth": 13,
         "spriteHeight": 13
       }

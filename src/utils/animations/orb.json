@@ -1,0 +1,13 @@
+{
+  "idle": {
+    "frameRate": 1,
+    "frames": [
+      {
+        "spriteX": 35,
+        "spriteY": 43,
+        "spriteWidth": 2,
+        "spriteHeight": 2
+      }
+    ]
+  }
+}
