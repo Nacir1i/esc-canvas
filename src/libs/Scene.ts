@@ -1,4 +1,4 @@
-import type { InputManager } from "./InputManager";
+import { InputManager } from "./InputManager";
 import { components, type ComponentName } from "../component";
 
 type System = (scene: Scene, deltaTIme: number) => void;
@@ -11,8 +11,8 @@ export class Scene {
   inputManager: InputManager;
   componentMaps: ComponentMaps;
 
-  constructor(inputManager: InputManager) {
-    this.inputManager = inputManager;
+  constructor() {
+    this.inputManager = new InputManager();
 
     this.componentMaps = Object.keys(components).reduce((acc, key) => {
       const componentName = key as ComponentName;
@@ -39,6 +39,33 @@ export class Scene {
     component: InstanceType<(typeof components)[C]>
   ) {
     this.componentMaps[name].set(entityId, component);
+  }
+
+  public registerComponents(
+    entityId: string,
+    componentsToAdd: InstanceType<(typeof components)[ComponentName]>[]
+  ) {
+    for (const componentInstance of componentsToAdd) {
+      const componentName = componentInstance.constructor.name;
+
+      if (componentName in this.componentMaps) {
+        const name = componentName as ComponentName;
+
+        this.componentMaps[name].set(entityId, componentInstance as any);
+      } else {
+        console.warn(
+          `Component class "${componentName}" is not registered in your 'components' object.`
+        );
+      }
+    }
+  }
+
+  public removeEntityComponents(id: string) {
+    Object.values(this.componentMaps).map((map) => {
+      map.delete(id);
+    });
+
+    this.queryCache.clear();
   }
 
   public query(componentNames: ComponentName[]): string[] {
