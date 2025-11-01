@@ -1,15 +1,20 @@
 import { uuidv7 as uuid } from "uuidv7";
 import { State } from "../component/State";
+import { Hitbox } from "../component/Hitbox";
 import { Velocity } from "../component/Velocity";
 import { Animation } from "../component/Animation";
 import { Transform } from "../component/Transform";
+import { Collisions } from "../component/Collisions";
 import { Dimensions } from "../component/Dimensions";
 import pacmanAnimations from "../utils/animations/pacman.json";
 import { AnimationCollection } from "../component/AnimationCollection";
-import { Hitbox } from "../component/Hitbox";
+import { LastValidPosition } from "../component/LastValidPosition";
+import { Player } from "../component/Player";
+import { Score } from "../component/Score";
 
 const PLAYER_WIDTH = 40;
-const PLAYER_HEIGHT = 30;
+const PLAYER_HEIGHT = 40;
+const PLAYER_SPEED = 100;
 
 type PlayerState =
   | "idle"
@@ -21,6 +26,8 @@ type PlayerState =
 export function createPlayerEntity(startingPosition: { x: number; y: number }) {
   const id = uuid();
 
+  const player = new Player();
+
   const playerState: PlayerState = "moving-right";
   const state = new State(playerState);
 
@@ -30,10 +37,17 @@ export function createPlayerEntity(startingPosition: { x: number; y: number }) {
     PLAYER_WIDTH,
     PLAYER_HEIGHT
   );
+  const collisions = new Collisions();
   const dimensions = new Dimensions(PLAYER_WIDTH, PLAYER_HEIGHT);
 
-  const velocity = new Velocity(0, 0, 90);
+  const velocity = new Velocity(0, 0, PLAYER_SPEED);
+  const lastValidPosition = new LastValidPosition(
+    startingPosition.x,
+    startingPosition.y
+  );
   const transform = new Transform(startingPosition.x, startingPosition.y, 0);
+
+  const score = new Score();
 
   const idleAnimation = new Animation(
     pacmanAnimations["idle"].frames,
@@ -66,5 +80,19 @@ export function createPlayerEntity(startingPosition: { x: number; y: number }) {
 
   const animations = new AnimationCollection(animationByState);
 
-  return { id, hitbox, dimensions, transform, velocity, animations, state };
+  return {
+    id,
+    components: [
+      player,
+      hitbox,
+      dimensions,
+      transform,
+      velocity,
+      animations,
+      state,
+      collisions,
+      lastValidPosition,
+      score,
+    ],
+  };
 }
