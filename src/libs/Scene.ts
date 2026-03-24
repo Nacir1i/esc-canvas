@@ -36,14 +36,16 @@ export class Scene {
   public registerComponent<C extends ComponentName>(
     entityId: string,
     name: C,
-    component: InstanceType<(typeof components)[C]>
+    component: InstanceType<(typeof components)[C]>,
   ) {
     this.componentMaps[name].set(entityId, component);
+
+    this.queryCache.clear();
   }
 
   public registerComponents(
     entityId: string,
-    componentsToAdd: InstanceType<(typeof components)[ComponentName]>[]
+    componentsToAdd: InstanceType<(typeof components)[ComponentName]>[],
   ) {
     for (const componentInstance of componentsToAdd) {
       const componentName = componentInstance.constructor.name;
@@ -54,10 +56,12 @@ export class Scene {
         this.componentMaps[name].set(entityId, componentInstance as any);
       } else {
         console.warn(
-          `Component class "${componentName}" is not registered in your 'components' object.`
+          `Component class "${componentName}" is not registered in your 'components' object.`,
         );
       }
     }
+
+    this.queryCache.clear();
   }
 
   public removeEntityComponents(id: string) {
@@ -76,7 +80,7 @@ export class Scene {
     }
 
     const componentMaps = componentNames.map(
-      (name) => this.componentMaps[name]
+      (name) => this.componentMaps[name],
     );
     const smallestMap = componentMaps.sort((a, b) => a.size - b.size)[0];
     const otherMaps = componentMaps.slice(1);
