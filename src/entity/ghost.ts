@@ -8,8 +8,8 @@ import { Dimensions } from "../component/Dimensions";
 import ghostAnimations from "../utils/animations/ghost.json";
 import { AnimationCollection } from "../component/AnimationCollection";
 
-const GHOST_WIDTH = 40;
-const GHOST_HEIGHT = 40;
+const GHOST_WIDTH = 30;
+const GHOST_HEIGHT = 30;
 
 type PlayerState = "idle";
 
