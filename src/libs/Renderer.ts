@@ -1,6 +1,23 @@
 import type { SpriteSheetLoader } from "./SpriteSheetLoader";
 import type { Scene } from "./Scene";
 
+type Rec = "strokeRect" | "fillRect";
+type Style = "strokeStyle" | "fillStyle";
+
+export interface BaseRenderOptions {
+  rec: Rec;
+  style: Style;
+}
+
+export interface StrokeRenderOption extends BaseRenderOptions {
+  rec: "strokeRect";
+  style: "strokeStyle";
+}
+export interface FillRenderOption extends BaseRenderOptions {
+  rec: "fillRect";
+  style: "fillStyle";
+}
+
 export class Renderer {
   private canvasWidth;
   private canvasHeight;
@@ -94,8 +111,10 @@ export class Renderer {
       const entityRectangle = scene.componentMaps.Rectangle.get(entityId)!;
       const entityDimensions = scene.componentMaps.Dimensions.get(entityId)!;
 
-      this.canvasContext.fillStyle = entityRectangle.color;
-      this.canvasContext.fillRect(
+      const renderOptions = entityRectangle.renderStyle;
+
+      this.canvasContext[renderOptions.style] = entityRectangle.color;
+      this.canvasContext[renderOptions.rec](
         entityTransform.x,
         entityTransform.y,
         entityDimensions.width,

@@ -5,15 +5,17 @@ import { Collisions } from "../component/Collisions";
 import { Dimensions } from "../component/Dimensions";
 import { Rectangle } from "../component/Rectangle";
 import { Transform } from "../component/Transform";
+import type { BaseRenderOptions } from "../libs/Renderer";
 
 export function createRectangle(
   color: string,
   position: { x: number; y: number },
-  recDimensions: { width: number; height: number }
+  recDimensions: { width: number; height: number },
+  renderStyle: BaseRenderOptions
 ) {
   const id = uuid();
 
-  const rectangle = new Rectangle(color);
+  const rectangle = new Rectangle(color, renderStyle);
 
   const block = new Block();
 
@@ -27,5 +29,8 @@ export function createRectangle(
   const collisions = new Collisions();
   const dimensions = new Dimensions(recDimensions.width, recDimensions.height);
 
-  return { id, components: [block, hitbox, collisions, dimensions, rectangle, transform] };
+  return {
+    id,
+    components: [block, hitbox, collisions, dimensions, rectangle, transform],
+  };
 }
