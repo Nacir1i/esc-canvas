@@ -4,7 +4,7 @@ import { Loop } from "./libs/Loop";
 import { Scene } from "./libs/Scene";
 import { createOrb } from "./entity/orb";
 import { Renderer } from "./libs/Renderer";
-import { movement } from "./system/movement";
+import { globalEntityMovement } from "./system/globalEntityMovement";
 import { animations } from "./system/animations";
 import { createGhostEntity } from "./entity/ghost";
 import { createPlayerEntity } from "./entity/player";
@@ -51,7 +51,7 @@ async function main() {
     CANVAS_WIDTH,
     CANVAS_HEIGHT,
     canvasContext,
-    assetsManager
+    assetsManager,
   );
 
   const player = createPlayerEntity(player1StartingPosition);
@@ -64,7 +64,7 @@ async function main() {
   const playerScore = createPlayerScore();
 
   scene.registerSystem(playerMovement);
-  scene.registerSystem(movement);
+  scene.registerSystem(globalEntityMovement);
   scene.registerSystem(syncHitboxPositionToEntityPosition);
   scene.registerSystem(collisionDetection);
   scene.registerSystem(playerOrbCollision);

@@ -1,6 +1,6 @@
 import type { Scene } from "../libs/Scene";
 
-export function movement(scene: Scene, deltaTime: number) {
+export function globalEntityMovement(scene: Scene, deltaTime: number) {
   const entityIds = scene.query(["Transform", "Velocity"]);
 
   if (!entityIds) return;
