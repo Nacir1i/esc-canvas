@@ -12,8 +12,8 @@ import { LastValidPosition } from "../component/LastValidPosition";
 import { Player } from "../component/Player";
 import { Score } from "../component/Score";
 
-const PLAYER_WIDTH = 40;
-const PLAYER_HEIGHT = 40;
+const PLAYER_WIDTH = 20;
+const PLAYER_HEIGHT = 20;
 const PLAYER_SPEED = 100;
 
 type PlayerState =
@@ -28,14 +28,14 @@ export function createPlayerEntity(startingPosition: { x: number; y: number }) {
 
   const player = new Player();
 
-  const playerState: PlayerState = "moving-right";
+  const playerState: PlayerState = "idle";
   const state = new State(playerState);
 
   const hitbox = new Hitbox(
     startingPosition.x,
     startingPosition.y,
     PLAYER_WIDTH,
-    PLAYER_HEIGHT
+    PLAYER_HEIGHT,
   );
   const collisions = new Collisions();
   const dimensions = new Dimensions(PLAYER_WIDTH, PLAYER_HEIGHT);
@@ -43,7 +43,7 @@ export function createPlayerEntity(startingPosition: { x: number; y: number }) {
   const velocity = new Velocity(0, 0, PLAYER_SPEED);
   const lastValidPosition = new LastValidPosition(
     startingPosition.x,
-    startingPosition.y
+    startingPosition.y,
   );
   const transform = new Transform(startingPosition.x, startingPosition.y, 0);
 
@@ -51,23 +51,23 @@ export function createPlayerEntity(startingPosition: { x: number; y: number }) {
 
   const idleAnimation = new Animation(
     pacmanAnimations["idle"].frames,
-    pacmanAnimations["idle"].frameRate
+    pacmanAnimations["idle"].frameRate,
   );
   const movingRightAnimation = new Animation(
     pacmanAnimations["moving-right"].frames,
-    pacmanAnimations["moving-right"].frameRate
+    pacmanAnimations["moving-right"].frameRate,
   );
   const movingLeftAnimation = new Animation(
     pacmanAnimations["moving-left"].frames,
-    pacmanAnimations["moving-left"].frameRate
+    pacmanAnimations["moving-left"].frameRate,
   );
   const movingUptAnimation = new Animation(
     pacmanAnimations["moving-up"].frames,
-    pacmanAnimations["moving-up"].frameRate
+    pacmanAnimations["moving-up"].frameRate,
   );
   const movingDownAnimation = new Animation(
     pacmanAnimations["moving-down"].frames,
-    pacmanAnimations["moving-down"].frameRate
+    pacmanAnimations["moving-down"].frameRate,
   );
 
   const animationByState: Record<PlayerState, Animation> = {
